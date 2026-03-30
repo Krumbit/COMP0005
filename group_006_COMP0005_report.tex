@@ -55,6 +55,8 @@ The insertion and search times of the algorithms are taken from the median of a 
     \label{tab:hw_sw}
 \end{table}
 
+To minimize "noise" and ensure the reliability of the \texttt{timeit} measurements, all experiments were conducted under a "clean boot" state on the local machine. All non-essential background applications, including web browsers, cloud synchronization services, and indexing tools, were manually terminated prior to execution.
+
 
 
 \section{Performance results}
@@ -130,7 +132,7 @@ An important thing to address is also that the B Tree can be seen to be much mor
 
 Across different data distributions, the results are as expected, where the sorted and reverse-sorted inputs are generally faster, due to the rebalancing mechanism of these trees, which prevents the $O (n)$ height degeneration from occurring if it was a regular binary search tree.
 
-Overall, the LLRB tree is consistently the fastest tree for insertions across the three distributions. The AVL tree while suffering from duplicate checks in insert operations performs similarly to the LLRB tree in searching making the AVL and LLRB trees the better choices for in-memory search-heavy processes rather than the B Tree. Despite poor performances within this experimental framework, in practical scenarios the B Tree is useful in processing large amounts of data in a node where $t$ is very large and utilizing disk-based storage to amortize the cost of scanning keys in a node by reading an entire node in a single operation~\cite{alma9931552389604761}. For an in-memory process with low values of $t$ as well as branching factors however, LLRB and AVL trees remain the better choices in terms of cost and time complexity.
+Overall, the LLRB tree is consistently the fastest tree for insertions across the three distributions. The AVL tree while suffering from duplicate checks in insert operations performs similarly to the LLRB tree in searching making the AVL and LLRB trees the better choices for in-memory search-heavy processes rather than the B Tree. While both the AVL and LLRB trees maintain $O(\log n)$ height, their empirical performance for inserts diverged due to the hidden facts. The AVL tree is "strictly" balanced (height difference $\leq 1$), which results in more frequent rotations during insertion compared to the "procrastinated" balancing of the LLRB. Despite poor performances within this experimental framework, in practical scenarios the B Tree is useful in processing large amounts of data in a node where $t$ is very large and utilizing disk-based storage to amortize the cost of scanning keys in a node by reading an entire node in a single operation~\cite{alma9931552389604761}. For an in-memory process with low values of $t$ as well as branching factors however, LLRB and AVL trees remain the better choices in terms of cost and time complexity.
 
 
 
@@ -147,7 +149,7 @@ Overall, the LLRB tree is consistently the fastest tree for insertions across th
 \hline
 Arif    &  25125738  & Ran experiments, analyzed results and authored report & $25\%$ \\\hline
 Yan     &25178418    &Developed experimentation framework, implemented BTree, reviewed report& $25\%$ \\\hline
-          &            &         &          \\\hline
+Yahya   &   25010297 &  Implemented AVL Tree, iterated on experimentation framework       &  $25\%$   \\\hline
           &            &         &          \\
 %% more entries as needed
 \hline
