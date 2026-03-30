@@ -13,8 +13,6 @@
 \date{March 2026}
 \maketitle
 
-
-
 \section{Experimental framework overview}
 
 \subsection{Framework design and architecture}
@@ -35,7 +33,7 @@ Performance was measured and recorded at 11 distinct checkpoints:
 \[
     [100, 250, 500, 1000, 2500, 5000, 10000, 25000, 50000, 75000, 100000]
 \]
-The insertion and search times of the algorithms are taken from the median of a batch of measurements across each of these checkpoints. The median was preferred over the mean as it reduces the effect of outliers produced by occasional timing spikes due to uncontrollable background OS processes. Results are demonstrated with a line graph using \texttt{matplotlib}.
+The insertion and search times of the algorithms are taken from the median of a batch of measurements across each of these checkpoints. The median was preferred over the mean as it reduces the effect of outliers produced by occasional timing spikes due to uncontrollable background OS processes. Results were demonstrated with a line graph using \texttt{matplotlib}.
 
 \subsection{Hardware/software setup for experiments}
 \begin{table}[H]
@@ -104,7 +102,7 @@ On the other hand, for the search operations in Figure 4 the average search time
 
 For insert operations, a large spike can be seen for the B Tree's graphs in Figure 5 around the 50, 000 element counts mark where it peaks at approximately $1.2 \times 10^{-5}$ seconds. Overall, the AVL tree consistently has the highest insertion times compared to the other two which hover around $0.6 \times 10^{-5}$ and $0.7 \times 10^{-5}$ seconds past the 10, 000 element counts.
 
-Average search times under reverse-sorted inputs closely mirror the average search times under sorted inputs, which is expected as shown in Figure 6. LLRB tree generally has the lowest search times with the AVL tree following very closely with both measuring slightly more than $1.0 \times 10^{-6}$ seconds for 100, 000 elements. B Tree on the other hand, is significantly slower having an average search time of $4.0 \times 10^{-6}$ seconds at its peak at 50, 000 elements count (similar to sorted inputs) and just below $4.0 \times 10^{-6}$ seconds at 100, 000 element counts.
+Average search times under reverse-sorted inputs closely mirror the average search times under sorted inputs, which is expected as shown in Figure 6. LLRB tree generally has the lowest search times followed closely by the AVL tree with both measuring slightly more than $1.0 \times 10^{-6}$ seconds for 100, 000 elements. B Tree on the other hand, is significantly slower having an average search time of $4.0 \times 10^{-6}$ seconds at its peak at 50, 000 elements count (similar to sorted inputs) and just below $4.0 \times 10^{-6}$ seconds at 100, 000 element counts.
 
 
 
@@ -124,11 +122,11 @@ Average search times under reverse-sorted inputs closely mirror the average sear
 
 
 \section{Comparative assessment}
-Based on the results and graphs, insert operations' performance are consistently topped by the LLRB tree, having the lowest average insertion times across the three data distributions. On the flipside, the AVL tree consistently performed the worst while the B Tree is overall in the middle despite having irregular spikes. The most prominent contributing factor towards the AVL tree's slow insertion time could be attributed to the fact that it checks for duplicates for every insert, which entails searching through the entire tree and adding $O(\log n)$ of cost which effectively doubles the work. The LLRB tree on the other hand checks for duplicates in its recursion process, making it more efficient. Overall however, all graphs closely show a trend of $O (\log n)$ growth which is expected of these data structures.
+Based on the results, insert operations' performance are consistently topped by the LLRB tree, having the lowest average insertion times across the three data distributions. On the flipside, the AVL tree consistently performed the worst while the B Tree is overall in the middle despite having irregular spikes. The most prominent contributing factor towards the AVL tree's slow insertion time could be attributed to the fact that it checks for duplicates for every insert, which entails searching through the entire tree and adding $O(\log n)$ of cost which effectively doubles the work. The LLRB tree on the other hand checks for duplicates in its recursion process, making it more efficient. Overall however, all graphs closely show a trend of $O (\log n)$ growth which is expected of these data structures.
 
 For search operations, the results differ from the inserts' performance where the B Tree consistently has the highest average measured time across all checkpoints, usually more than double the average time of the other two structures. This can be attributed to the fact that the B Tree needs to check for all keys that a node holds before descending to the next level, and with $t=2$, a node could hold up to 3 keys, but the tree's height would only be marginally smaller than the other two trees. This makes the traversal cost for the search operation on the B Tree much higher than the AVL and LLRB tree which execute only one check per level. The LLRB is again generally the fastest tree albeit marginally compared to the AVL tree which again may be attributable to its duplicate check being executed in the recursive descent rather than separately.
 
-An important thing to address is also that the B Tree can be seen to be much more volatile compared to the others, which stems from its nature where the splitting of a node requires the redistribution of keys which may or may not propagate up multiple levels, and in worst-case all the way to the root, creating a new level. Since nodes hold different amounts of keys at different insertion points, it causes some inserts to be cheap while others are expensive, causing the volatility. This is especially true when the graph peaks which indicates a new level is created, and goes back down again.
+An important thing to address is that the B Tree can be seen to be much more volatile compared to the others, which stems from its nature where the splitting of a node requires the redistribution of keys which may or may not propagate up multiple levels, and in worst-case all the way to the root, creating a new level. Since nodes hold different amounts of keys at different insertion points, it causes some inserts to be cheap while others are expensive, causing the volatility. This is especially true when the graph peaks which indicates a new level is created, and goes back down again.
 
 Across different data distributions, the results are as expected, where the sorted and reverse-sorted inputs are generally faster, due to the rebalancing mechanism of these trees, which prevents the $O (n)$ height degeneration from occurring if it was a regular binary search tree.
 
@@ -147,10 +145,10 @@ Overall, the LLRB tree is consistently the fastest tree for insertions across th
 \hline
 {\bf Name} & {\bf Portico ID} & {\bf Key contributions} & {\bf Work share (\%)} \\[1mm]
 \hline
-Arif    &  25125738  & Ran experiments, analyzed results and authored report & $25\%$ \\\hline
+Arif    &  25125738  & Ran experiments, analysed results and authored report & $25\%$ \\\hline
 Yan     &25178418    &Developed experimentation framework, implemented BTree, reviewed report& $25\%$ \\\hline
-Yahya   &   25010297 &  Implemented AVL Tree, iterated on experimentation framework, reviewed report       &  $25\%$   \\\hline
-          &            &         &          \\
+Yahya   &   25010297 &  Implemented AVL Tree, iterated on experimentation framework, reviewed report   &  $25\%$   \\\hline
+Danyal  &25021460    &Implemented Left-Leaning Red-Black Tree algorithm, iterated on experimentation framework, reviewed report     &$25\%$       \\
 %% more entries as needed
 \hline
 \end{tabular}
